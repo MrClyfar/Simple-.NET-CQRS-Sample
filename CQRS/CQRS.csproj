@@ -45,6 +45,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="IContext.cs" />
+    <Compile Include="PagingInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\ListSitesQuery.cs" />

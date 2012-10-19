@@ -11,6 +11,15 @@
             this.Context = context;
         }
 
+        public ListSitesQueryResult Execute(PagingInfo pagingInfo)
+        {
+            return new ListSitesQueryResult(
+                this.Context.Sites
+                .Skip(pagingInfo.PageNumber * pagingInfo.PageSize)
+                .Take(pagingInfo.PageSize)
+                .ToList());
+        }
+
         public ListSitesQueryResult Execute()
         {
             return new ListSitesQueryResult(this.Context.Sites.ToList());

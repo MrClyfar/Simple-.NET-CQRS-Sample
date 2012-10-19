@@ -3,6 +3,8 @@
     using System;
     using CQRS.Commands;
     using CQRS.Queries;
+    using FizzWare.NBuilder;
+    using Moq;
     using Xunit;
 
     public class AddSiteCommandTests
@@ -51,6 +53,50 @@
 
             // Act and Assert.
             Assert.Throws<ArgumentException>(() => sut.Execute());
+        }
+
+        [Fact]
+        public void PassingPagingInfoReturnsFiveSites()
+        {
+            // Arrange.
+            var sites = Builder<Site>.CreateListOfSize(10).Build();
+
+            var ctx = new Mock<IContext>();
+
+            ctx.Setup(m => m.Sites).Returns(sites);
+
+            // Act.
+            var pagingInfo = new PagingInfo { PageSize = 5, PageNumber = 1 };
+
+            // Act.
+            var sut = new ListSitesQuery(ctx.Object);
+
+            var result = sut.Execute(pagingInfo);
+
+            // Assert.
+            Assert.Equal(5, result.Sites.Count);
+        }
+
+        [Fact]
+        public void PassingPagingInfoReturnsTwoSites()
+        {
+            // Arrange.
+            var sites = Builder<Site>.CreateListOfSize(22).Build();
+
+            var ctx = new Mock<IContext>();
+
+            ctx.Setup(m => m.Sites).Returns(sites);
+
+            // Act.
+            var pagingInfo = new PagingInfo { PageSize = 5, PageNumber = 4 };
+
+            // Act.
+            var sut = new ListSitesQuery(ctx.Object);
+
+            var result = sut.Execute(pagingInfo);
+
+            // Assert.
+            Assert.Equal(2, result.Sites.Count);
         }
     }
 }
