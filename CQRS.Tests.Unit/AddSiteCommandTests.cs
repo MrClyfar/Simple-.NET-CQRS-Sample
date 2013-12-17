@@ -1,10 +1,10 @@
 ﻿namespace CQRS.Tests.Unit
 {
-    using System;
-    using CQRS.Commands;
-    using CQRS.Queries;
+    using Commands;
     using FizzWare.NBuilder;
     using Moq;
+    using Queries;
+    using System;
     using Xunit;
 
     public class AddSiteCommandTests
