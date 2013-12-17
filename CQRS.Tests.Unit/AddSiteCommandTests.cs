@@ -96,7 +96,29 @@
             var result = sut.Execute(pagingInfo);
 
             // Assert.
-            Assert.Equal(2, result.Sites.Count);
+            Assert.Equal(5, result.Sites.Count);
+        }
+
+        [Fact]
+        public void PassingPagingInfoReturnsOneSite()
+        {
+            // Arrange.
+            var sites = Builder<Site>.CreateListOfSize(1).Build();
+
+            var ctx = new Mock<IContext>();
+
+            ctx.Setup(m => m.Sites).Returns(sites);
+
+            // Act.
+            var pagingInfo = new PagingInfo { PageSize = 1, PageNumber = 1 };
+
+            // Act.
+            var sut = new ListSitesQuery(ctx.Object);
+
+            var result = sut.Execute(pagingInfo);
+
+            // Assert.
+            Assert.Equal(1, result.Sites.Count);
         }
     }
 }

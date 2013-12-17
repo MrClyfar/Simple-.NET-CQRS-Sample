@@ -15,7 +15,7 @@
         {
             return new ListSitesQueryResult(
                 this.Context.Sites
-                .Skip(pagingInfo.PageNumber * pagingInfo.PageSize)
+                .Skip((pagingInfo.PageNumber - 1) * pagingInfo.PageSize)
                 .Take(pagingInfo.PageSize)
                 .ToList());
         }
